@@ -2,6 +2,9 @@
 
 Add your original image files using these exact paths and filenames:
 
+## Site icon
+- `favicon.svg` — generated monogram; already included
+
 ## Brand
 - `brand/matanda-design-logo.png` — black logo on transparent
 - `brand/matanda-design-logo-white.png` — white logo on transparent

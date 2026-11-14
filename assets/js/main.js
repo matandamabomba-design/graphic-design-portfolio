@@ -72,6 +72,11 @@
     image.alt = title;
     image.loading = "lazy";
     image.decoding = "async";
+    image.addEventListener("load", () => {
+      if (className.includes("project-image") && image.naturalWidth && image.naturalHeight) {
+        wrapper.style.aspectRatio = `${image.naturalWidth} / ${image.naturalHeight}`;
+      }
+    }, { once: true });
     image.addEventListener("error", () => {
       image.remove();
       wrapper.classList.add("is-placeholder");
@@ -270,6 +275,13 @@
   const socialLinks = document.getElementById("social-links");
   if (socialLinks) {
     const socialLabels = { instagram: "Instagram", tiktok: "TikTok", linkedin: "LinkedIn", x: "X", youtube: "YouTube" };
+    const socialIcons = {
+      instagram: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle class="icon-dot" cx="17.5" cy="6.8" r="1"/></svg>',
+      tiktok: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3v11.2a4.2 4.2 0 1 1-3.2-4.1M14 3c.4 3.2 2.3 5.2 5.5 5.5"/></svg>',
+      linkedin: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9v10M5 5.5v.1M10 19v-6a4 4 0 0 1 8 0v6M10 9v10"/></svg>',
+      x: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 4 16 16M20 4 4 20"/></svg>',
+      youtube: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="4"/><path class="icon-fill" d="m10 9 5.5 3-5.5 3z"/></svg>'
+    };
     Object.entries(data.social || {}).forEach(([key, url]) => {
       if (!url) return;
       const link = document.createElement("a");
@@ -277,7 +289,7 @@
       link.target = "_blank";
       link.rel = "noopener noreferrer";
       link.setAttribute("aria-label", socialLabels[key] || key);
-      link.textContent = socialLabels[key] || key;
+      link.innerHTML = socialIcons[key] || escapeHtml(socialLabels[key] || key);
       socialLinks.append(link);
     });
     socialLinks.hidden = socialLinks.children.length === 0;
@@ -294,8 +306,9 @@
     description: data.tagline
   };
   if (data.contact.email) structuredData.email = data.contact.email;
-  if (data.contact.phones && data.contact.phones.length) structuredData.telephone = data.contact.phones[0];
-  if (data.social) structuredData.sameAs = Object.values(data.social).filter(Boolean);
+  if (data.contact.phones && data.contact.phones[0]) structuredData.telephone = data.contact.phones[0];
+  const socialUrls = Object.values(data.social || {}).filter(Boolean);
+  if (socialUrls.length) structuredData.sameAs = socialUrls;
   const jsonLd = document.createElement("script");
   jsonLd.type = "application/ld+json";
   jsonLd.textContent = JSON.stringify(structuredData);
