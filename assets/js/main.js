@@ -256,10 +256,23 @@
       toolList.append(item);
     });
     const portrait = document.querySelector("#portrait-frame img");
-    portrait.addEventListener("error", () => {
-      portrait.hidden = true;
-      document.getElementById("portrait-frame").classList.add("portrait-fallback");
-    }, { once: true });
+    const portraitFrame = document.getElementById("portrait-frame");
+    const showPortraitFallback = () => {
+      portrait.remove();
+      portraitFrame.classList.add("portrait-fallback");
+    };
+    if (window.location.protocol === "file:") {
+      showPortraitFallback();
+    } else {
+      fetch(portrait.dataset.src, { method: "HEAD" }).then((response) => {
+        if (!response.ok) {
+          showPortraitFallback();
+          return;
+        }
+        portrait.addEventListener("error", showPortraitFallback, { once: true });
+        portrait.src = portrait.dataset.src;
+      }).catch(showPortraitFallback);
+    }
   }
 
   const contactActions = document.getElementById("contact-actions");
