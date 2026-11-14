@@ -28,13 +28,13 @@
       <h1>${escapeHtml(project.title)}</h1>
       <p class="project-meta">${caseStudy.role ? `<span>${escapeHtml(caseStudy.role)}</span>` : ""}${project.year ? `<span>${escapeHtml(project.year)}</span>` : ""}</p>
     </header>
-    <figure class="project-hero-image">${imageHtml(project.image, project.title, "case-image")}</figure>
+    <figure class="project-hero-image">${imageHtml(project.image, project.title, `case-image${project.category === "Logo & Branding" ? " image-fit-logo" : ""}`)}</figure>
     ${hasCaseStudy ? `<div class="project-story">
       <section><p class="eyebrow">01 / The brief</p><h2>The brief</h2><p>${escapeHtml(caseStudy.brief)}</p></section>
       <section><p class="eyebrow">02 / My approach</p><h2>My approach</h2>${(caseStudy.approach || []).map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join("")}</section>
       <section><p class="eyebrow">03 / The outcome</p><h2>Deliverables</h2><ul class="deliverables-list">${(caseStudy.deliverables || []).map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul></section>
     </div>` : `<section class="project-story case-note"><p class="eyebrow">Project overview</p><h2>${escapeHtml(project.title)}</h2><p>${escapeHtml(project.description)}</p><p>A full case study has not been added yet.</p><a class="text-link" href="index.html#work">Back to selected work <span aria-hidden="true">↗</span></a></section>`}
-    ${caseStudy.gallery && caseStudy.gallery.length ? `<section class="project-gallery-section" aria-labelledby="gallery-title"><p class="eyebrow">More from the project</p><h2 id="gallery-title">In the series<span class="accent-period">.</span></h2><div class="project-gallery">${caseStudy.gallery.map((image, index) => `<button class="gallery-image-button" type="button" data-image-index="${index}" aria-label="Open project image ${index + 1}">${imageHtml(image, `${project.title}, additional image ${index + 1}`, "gallery-image")}</button>`).join("")}</div></section>` : ""}
+    ${caseStudy.gallery && caseStudy.gallery.length ? `<section class="project-gallery-section" aria-labelledby="gallery-title"><p class="eyebrow">More from the project</p><h2 id="gallery-title">In the series<span class="accent-period">.</span></h2><div class="project-gallery">${caseStudy.gallery.map((image, index) => `<button class="gallery-image-button" type="button" data-image-index="${index}" aria-label="Open project image ${index + 1}">${imageHtml(image, `${project.title}, additional image ${index + 1}`, `gallery-image${project.category === "Logo & Branding" ? " image-fit-logo" : ""}`)}</button>`).join("")}</div></section>` : ""}
     ${hasCaseStudy && nextProject ? `<a class="next-project" href="project.html?id=${encodeURIComponent(nextProject.id)}"><span><span class="eyebrow">Next case study</span><strong>${escapeHtml(nextProject.title)}</strong></span><span class="next-arrow" aria-hidden="true">↗</span></a>` : ""}
   `;
   document.title = `${project.title} — MatandaDesign case study`;
@@ -51,7 +51,7 @@
     const imageWrap = lightbox.querySelector(".lightbox-image-wrap");
     imageWrap.replaceChildren();
     const wrapper = document.createElement("div");
-    wrapper.className = "image-placeholder";
+    wrapper.className = `image-placeholder${project.category === "Logo & Branding" ? " image-fit-logo" : ""}`;
     wrapper.dataset.title = project.title;
     const image = document.createElement("img");
     image.src = galleryImages[activeImageIndex];

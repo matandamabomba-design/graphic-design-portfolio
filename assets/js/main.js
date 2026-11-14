@@ -80,14 +80,14 @@
     });
   }
 
-  const imageWithPlaceholder = (src, title, className = "") => {
+  const imageWithPlaceholder = (src, title, className = "", loading = "lazy") => {
     const wrapper = document.createElement("div");
     wrapper.className = `image-placeholder ${className}`.trim();
     wrapper.setAttribute("data-title", title);
     const image = document.createElement("img");
     image.src = src;
     image.alt = title;
-    image.loading = "lazy";
+    image.loading = loading;
     image.decoding = "async";
     image.addEventListener("load", () => {
       if (className.includes("project-image") && image.naturalWidth && image.naturalHeight) {
@@ -102,6 +102,12 @@
     return wrapper;
   };
 
+  const featuredProject = data.projects.find((project) => project.id === "eagles-conference-2026");
+  const heroFeatured = document.getElementById("hero-featured");
+  if (featuredProject && heroFeatured) {
+    heroFeatured.append(imageWithPlaceholder(featuredProject.image, featuredProject.title, "hero-featured-image", "eager"));
+  }
+
   let visibleProjects = data.projects.filter((project) => project.visible);
   let activeProjects = visibleProjects;
   let activeIndex = 0;
@@ -115,7 +121,8 @@
     const project = activeProjects[activeIndex];
     if (!project || !lightbox) return;
     const imageWrap = lightbox.querySelector(".lightbox-image-wrap");
-    imageWrap.replaceChildren(imageWithPlaceholder(project.image, project.title));
+    const logoImageClass = project.category === "Logo & Branding" ? "image-fit-logo" : "";
+    imageWrap.replaceChildren(imageWithPlaceholder(project.image, project.title, logoImageClass));
     lightbox.querySelector(".lightbox-category").textContent = project.category;
     lightbox.querySelector(".lightbox-title").textContent = project.title;
     lightbox.querySelector(".lightbox-description").textContent = project.description;
@@ -152,7 +159,7 @@
     renderLightbox();
   };
 
-  if (lightbox) {
+  if (lightbox && projectGrid) {
     lightbox.querySelector(".lightbox-close").addEventListener("click", closeLightbox);
     lightbox.querySelector(".lightbox-prev").addEventListener("click", () => moveLightbox(-1));
     lightbox.querySelector(".lightbox-next").addEventListener("click", () => moveLightbox(1));
@@ -204,7 +211,8 @@
       card.className = "project-card";
       card.type = "button";
       card.setAttribute("aria-label", `View ${project.title}, ${project.category}`);
-      card.append(imageWithPlaceholder(project.image, project.title, "project-image"));
+      const logoImageClass = project.category === "Logo & Branding" ? " image-fit-logo" : "";
+      card.append(imageWithPlaceholder(project.image, project.title, `project-image${logoImageClass}`));
       const details = document.createElement("span");
       details.className = "project-card-details";
       details.innerHTML = `<span class="project-card-title">${escapeHtml(project.title)}</span><span class="project-card-category">${escapeHtml(project.category)}</span>`;
@@ -241,7 +249,8 @@
       article.className = `case-card${index % 2 ? " case-card-reverse" : ""}`;
       const link = `project.html?id=${encodeURIComponent(project.id)}`;
       article.innerHTML = `<a class="case-image-link" href="${link}" aria-label="Read the ${escapeHtml(project.title)} case study"></a><div class="case-copy"><p class="eyebrow">${escapeHtml(project.category)}${project.year ? ` <span aria-hidden="true">·</span> ${escapeHtml(project.year)}` : ""}</p><h3>${escapeHtml(project.title)}</h3><p>${escapeHtml(project.description)}</p><a class="text-link" href="${link}">Explore case study <span aria-hidden="true">↗</span></a></div>`;
-      article.querySelector(".case-image-link").append(imageWithPlaceholder(project.image, project.title, "case-image"));
+      const logoImageClass = project.category === "Logo & Branding" ? " image-fit-logo" : "";
+      article.querySelector(".case-image-link").append(imageWithPlaceholder(project.image, project.title, `case-image${logoImageClass}`));
       caseList.append(article);
     });
   }
@@ -259,7 +268,8 @@
     const portraitFrame = document.getElementById("portrait-frame");
     const showPortraitFallback = () => {
       portrait.remove();
-      portraitFrame.classList.add("portrait-fallback");
+      portraitFrame.hidden = true;
+      document.querySelector(".about-grid").classList.add("about-no-portrait");
     };
     if (window.location.protocol === "file:") {
       showPortraitFallback();
@@ -295,6 +305,15 @@
       }
       contactActions.append(link);
     });
+    const emailText = document.getElementById("email-text");
+    if (data.contact.email && emailText) {
+      const emailLink = document.createElement("a");
+      emailLink.href = `mailto:${data.contact.email}`;
+      emailLink.textContent = data.contact.email;
+      emailText.append("Prefer email? ", emailLink);
+    } else if (emailText) {
+      emailText.hidden = true;
+    }
     const secondPhone = (data.contact.phones || [])[1];
     if (secondPhone) {
       const phoneText = document.getElementById("second-phone");

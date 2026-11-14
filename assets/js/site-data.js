@@ -11,7 +11,7 @@ window.SITE_DATA = {
   ],
   tools: ["Adobe Illustrator", "Adobe Photoshop", "Adobe Premiere Pro", "Adobe After Effects", "Canva Pro"],
   contact: {
-    email: "", // TODO: add email; hide the email button if empty
+    email: "YOUR-EMAIL@example.com", // TODO: replace with your real email
     phones: ["+256 761 999 092", "+256 794 539 064"],
     whatsapp: "256761999092"
   },
@@ -25,28 +25,6 @@ window.SITE_DATA = {
   siteUrl: "https://matandamabomba-design.github.io/graphic-design-portfolio/",
   categories: ["Logo & Branding", "Event Flyers", "Social Media", "Product Promo"],
   projects: [
-    // visible:true shows it on the site. Set false to hide.
-    {
-      id: "eagles-conference-2026",
-      title: "Eagles Conference 2026",
-      category: "Event Flyers",
-      year: "2026",
-      image: "assets/images/projects/eagles-conference-2026.jpg",
-      description: "Conference poster for International Rescue Ministry, Kinshasa.",
-      visible: true,
-      featured: true,
-      caseStudy: {
-        role: "Poster design",
-        brief: "International Rescue Ministry needed a poster for the Eagles Conference 2026 (theme: Increase) held 3 to 7 December 2026 at Terre Jaune, Nsele, Kinshasa, DR Congo. It had to present three speakers, the schedule and the venue clearly, and feel modern rather than traditional.",
-        approach: [
-          "I built the layout around a big, layered 'eagles conference' wordmark in the blue-to-green colours of the ministry's brand.",
-          "The three speakers sit in stacked rounded cards over bright geometric gradients, which gives depth and a clear reading order from top to bottom.",
-          "Dates, venue and times are set in a bold condensed typeface on a calm white background so the practical information is readable at a glance, and a QR code and social handle make the next step easy."
-        ],
-        deliverables: ["Print-ready poster", "Social media version (4:5)", "QR code placement"],
-        gallery: []
-      }
-    },
     // visible:true shows it on the site. Set false to hide.
     {
       id: "international-rescue-ministry-logo",
@@ -79,6 +57,28 @@ window.SITE_DATA = {
         ],
         deliverables: ["Primary logo (black)", "Reversed logo (white)", "Social media usage on posts and flyers"],
         gallery: ["assets/images/projects/matandadesign-logo-white.png"]
+      }
+    },
+    // visible:true shows it on the site. Set false to hide.
+    {
+      id: "eagles-conference-2026",
+      title: "Eagles Conference 2026",
+      category: "Event Flyers",
+      year: "2026",
+      image: "assets/images/projects/eagles-conference-2026.jpg",
+      description: "Conference poster for International Rescue Ministry, Kinshasa.",
+      visible: true,
+      featured: true,
+      caseStudy: {
+        role: "Poster design",
+        brief: "International Rescue Ministry needed a poster for the Eagles Conference 2026 (theme: Increase) held 3 to 7 December 2026 at Terre Jaune, Nsele, Kinshasa, DR Congo. It had to present three speakers, the schedule and the venue clearly, and feel modern rather than traditional.",
+        approach: [
+          "I built the layout around a big, layered 'eagles conference' wordmark in the blue-to-green colours of the ministry's brand.",
+          "The three speakers sit in stacked rounded cards over bright geometric gradients, which gives depth and a clear reading order from top to bottom.",
+          "Dates, venue and times are set in a bold condensed typeface on a calm white background so the practical information is readable at a glance, and a QR code and social handle make the next step easy."
+        ],
+        deliverables: ["Print-ready poster", "Social media version (4:5)", "QR code placement"],
+        gallery: []
       }
     },
     // visible:true shows it on the site. Set false to hide.
@@ -116,7 +116,7 @@ window.SITE_DATA = {
       year: "2026",
       image: "assets/images/projects/welcome-november-green.jpg",
       description: "A green and yellow new-month greeting for social media.",
-      visible: true,
+      visible: false,
       featured: false,
       caseStudy: null
     },
@@ -128,7 +128,7 @@ window.SITE_DATA = {
       year: "2026",
       image: "assets/images/projects/welcome-november-split.jpg",
       description: "A split-tone new-month greeting for social media.",
-      visible: true,
+      visible: false,
       featured: false,
       caseStudy: null
     },
@@ -140,7 +140,7 @@ window.SITE_DATA = {
       year: "2026",
       image: "assets/images/projects/welcome-november-purple.jpg",
       description: "A diagonal purple composition for a new-month greeting.",
-      visible: true,
+      visible: false,
       featured: false,
       caseStudy: null
     },
@@ -152,7 +152,7 @@ window.SITE_DATA = {
       year: "2026",
       image: "assets/images/projects/happy-new-month-calendar.jpg",
       description: "A calendar-inspired new-month greeting for social media.",
-      visible: true,
+      visible: false,
       featured: false,
       caseStudy: null
     },
