@@ -13,6 +13,23 @@
   if (heroRole) heroRole.textContent = data.title;
   const heroLocation = document.getElementById("hero-location");
   if (heroLocation) heroLocation.textContent = data.location;
+  document.querySelectorAll(".brand-fallback").forEach((fallback) => {
+    fallback.textContent = data.studio;
+  });
+  document.querySelectorAll(".brand").forEach((brand) => {
+    brand.setAttribute("aria-label", `${data.studio} home`);
+  });
+  document.querySelectorAll(".brand-logo").forEach((image) => {
+    image.alt = data.studio;
+  });
+  const footerStudioName = document.getElementById("footer-studio-name");
+  if (footerStudioName) footerStudioName.textContent = data.studio;
+  const portraitStudio = document.getElementById("portrait-studio");
+  if (portraitStudio) portraitStudio.textContent = data.studio;
+  const portraitLocation = document.getElementById("portrait-location");
+  if (portraitLocation) portraitLocation.textContent = data.location.split(",")[0];
+  const aboutTitle = document.getElementById("about-title");
+  if (aboutTitle) aboutTitle.textContent = `Designing from ${data.location.split(",")[0]}.`;
   if (document.querySelector(".hero")) {
     document.title = `${data.studio} — ${data.title} in ${data.location}`;
     const description = document.querySelector('meta[name="description"]');
