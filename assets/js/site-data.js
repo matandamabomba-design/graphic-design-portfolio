@@ -11,7 +11,7 @@ window.SITE_DATA = {
   ],
   tools: ["Adobe Illustrator", "Adobe Photoshop", "Adobe Premiere Pro", "Adobe After Effects", "Canva Pro"],
   contact: {
-    email: "YOUR-EMAIL@example.com", // TODO: replace with your real email
+    email: "matandaexauce3@gmail.com",
     phones: ["+256 761 999 092", "+256 794 539 064"],
     whatsapp: "256761999092"
   },
